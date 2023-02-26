@@ -1,12 +1,10 @@
 const express =require("express");
 const app=express();
 
+app.use(express.static("frontend"))
 
-app.get("/",function(req,res){
-    res.send("Hello World");
-})
-app.get("/myname",function(req,res){
-    res.send("Greeshma");
+app.get("/html",function(req,res) {
+    res.sendFile(__dirname+"/frontend/index.html")
 })
 
 app.listen(3000,function(){
