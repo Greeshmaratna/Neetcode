@@ -17,13 +17,17 @@ app.get("/",function(req,res){
 
 
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env.MONGO_CONNECTION_STRING,function(err){
+mongoose.connect(process.env.MONGO_CONNECTION_STRING,async function(err){
     if(err)
         console.error(err);
     else{
-        console.log("DB connected successfully")
+        console.log("DB connected successfully");
+        await courseLib.createFirstCourse();
+        const courses=await courseLib.getAllCourses()
+         console.log(courses);
         app.listen(3000,function(){
             console.log("Server running on http://localhost:3000")
         });
     }
 })
+const courseLib= require('./backend/lib/courseLib')
